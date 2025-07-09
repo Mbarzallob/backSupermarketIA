@@ -1,0 +1,47 @@
+.venv/
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de entorno
+.env
+*.env
+
+# Logs y bases de datos
+*.log
+*.sqlite3
+
+# Configuración de editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Archivos instalados por pip
+pip-wheel-metadata/
+*.egg-info/
+
+# Distribuciones
+build/
+dist/
+eggs/
+parts/
+sdist/
+var/
+
+# Coverage
+htmlcov/
+.coverage
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Otros
+*.bak
+*.swp
