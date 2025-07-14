@@ -27,6 +27,7 @@ def generate(product_name: str) -> dict:
         location=LOCATION,
     )
 
+    
     prompt = (
     f"Dame un JSON de un producto genérico de supermercado llamado «{product_name}». "
     "El JSON debe contener **solo** estos campos:\n"

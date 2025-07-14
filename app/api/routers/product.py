@@ -19,7 +19,10 @@ async def create_upload_product(file: UploadFile):
         await out_file.write(content)     
     
     producto = recognize_product(file_path)
-    
+
+
+    if not producto:
+        raise HTTPException(404, detail="No se pudo reconocer el producto")
     data = generate(producto)
     return data
 
