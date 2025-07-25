@@ -19,8 +19,8 @@ SAFETY_SETTINGS = [
     types.SafetySetting(category=cat, threshold="OFF")
     for cat in SAFETY_CATEGORIES_OFF
 ]
-
-def generate(product_name: str) -> dict:
+from typing import List
+def generate(product_names: List[str]) -> List[dict]:
     client = genai.Client(
         vertexai=True,
         project=PROJECT_ID,
@@ -29,12 +29,12 @@ def generate(product_name: str) -> dict:
 
     
     prompt = (
-    f"Dame un JSON de un producto genérico de supermercado llamado «{product_name}». "
+    f"Dame una lista de JSON de los productos producto genérico de supermercado llamados «{','.join(product_names)}». "
     "El JSON debe contener **solo** estos campos:\n"
     "  - nombre: nombre del producto:string\n"
-    "  - categoría: p. ej. higiene, limpieza, alimentación, electrónica, etc.:string\n"
-    "  - descripción: breve texto de 1-2 frases:string\n"
-    "  - presentación: formato en que se vende (botella, paquete, caja…):string\n"
+    "  - categoria: p. ej. higiene, limpieza, alimentación, electrónica, etc.:string\n"
+    "  - descripcion: breve texto de 1-2 frases:string\n"
+    "  - presentacion: formato en que se vende (botella, paquete, caja…):string\n"
     "  - componentes_principales: lista de ingredientes o materiales clave:string[]\n"
     "  - usos_recomendados: lista de los usos más comunes:string[]\n"
     "  - beneficios: lista de ventajas o efectos deseables:string[]\n"
@@ -69,9 +69,10 @@ def generate(product_name: str) -> dict:
         config=config,
     ):
         full_text += chunk.text
-
+    print(full_text)
     clean = _extract_json(full_text)
     try:
+        #print(clean)
         return json.loads(clean)
     except json.JSONDecodeError:
         return {"error_parse_json": full_text}
@@ -80,7 +81,7 @@ def _extract_json(text: str) -> str:
     
     no_fences = re.sub(r"```(?:json)?\n?", "", text)
     no_fences = no_fences.replace("```", "")
-    start = no_fences.find("{")
-    end   = no_fences.rfind("}") + 1
+    start = no_fences.find("[")
+    end   = no_fences.rfind("]") + 1
     return no_fences[start:end]
 
