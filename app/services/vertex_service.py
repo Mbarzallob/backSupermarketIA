@@ -29,7 +29,7 @@ def generate(product_names: List[str]) -> List[dict]:
 
     
     prompt = (
-    f"Dame una lista de JSON de los productos producto genérico de supermercado llamados «{','.join(product_names)}». "
+    f"Dame una lista de JSON de los productos genéricos de supermercado llamados «{','.join(product_names)}». Si es solo un producto, dame una lista solo con un producto.\n"
     "El JSON debe contener **solo** estos campos:\n"
     "  - nombre: nombre del producto:string\n"
     "  - categoria: p. ej. higiene, limpieza, alimentación, electrónica, etc.:string\n"
